@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap");
+html,
+body {
+  margin: 0;
+  height: auto;
+}
+form {
+  margin: 0;
+}
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #821baf;
+  color: #fff;
+  border-radius: 0.25rem;
+  transition: background 0.3s;
+}
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+}
+.a5-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  margin: 20px;
+  break-before: avoid;
+}
+
+.a5-page {
+  position: relative;
+  border: 1px solid #333;
+  padding: 15mm;
+  width: 148mm;
+  height: 210mm;
+  break-after: always;
+  box-sizing: border-box;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.a5-page textarea {
+  border: none;
+  resize: none;
+  font-family: "Zen Kurenaido", sans-serif;
+  font-size: 1rem;
+  line-height: 10mm;
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  outline: none;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 9.5mm,
+    #333 9.5mm,
+    #333 10mm
+  );
+}
+input[type="file"]::file-selector-button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #821baf;
+  color: #fff;
+  border-radius: 0.25rem;
+  transition: background 0.3s;
+}
+
+@media print {
+  @page {
+    size: A5 portrait;
+    margin: 0mm;
+  }
+
+  button,
+  input[type="file"] {
+    display: none;
+  }
+  .button-group {
+    display: none;
+  }
+  .a5-editor-container {
+    padding: 0;
+    margin: 0;
+    gap: 0;
+  }
+  .a5-page {
+    border: none;
+    &:not(:last-child) {
+      break-after: always;
+    }
+  }
+}
