@@ -18,8 +18,10 @@ button {
 }
 .button-group {
   display: flex;
-  gap: 1rem;
   margin: 1rem;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
 }
 .a5-editor-container {
   display: flex;
@@ -47,6 +49,7 @@ button {
   resize: none;
   font-family: "Zen Kurenaido", sans-serif;
   font-size: 1rem;
+  color: var(--font-color);
   line-height: 10mm;
   font-weight: 400;
   font-style: normal;
@@ -57,8 +60,8 @@ button {
   background: repeating-linear-gradient(
     transparent,
     transparent 9.5mm,
-    #333 9.5mm,
-    #333 10mm
+    var(--line-color) 9.5mm,
+    var(--line-color) 10mm
   );
 }
 input[type="file"]::file-selector-button {
@@ -69,6 +72,44 @@ input[type="file"]::file-selector-button {
   color: #fff;
   border-radius: 0.25rem;
   transition: background 0.3s;
+}
+
+.menu-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: #f4f4f4;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu h2 {
+  padding: 20px;
+  margin: 0;
+  background-color: #007bff;
+  color: white;
+}
+
+.side-menu input {
+  width: 150px;
+  box-sizing: border-box;
 }
 
 @media print {
@@ -82,6 +123,9 @@ input[type="file"]::file-selector-button {
     display: none;
   }
   .button-group {
+    display: none;
+  }
+  .side-menu-component {
     display: none;
   }
   .a5-editor-container {
