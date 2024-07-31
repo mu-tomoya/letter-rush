@@ -42,6 +42,8 @@ button {
   box-sizing: border-box;
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: rgb(255, 255, 255, calc(1 - var(--opacity)));
+  background-blend-mode: lighten;
 }
 
 .a5-page textarea {

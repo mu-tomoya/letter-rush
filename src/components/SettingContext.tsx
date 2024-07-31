@@ -7,6 +7,8 @@ export type Setting = {
   setFontColor: (color: string) => void;
   backgroundImage: string | null;
   setBackgroundImage: (file: string | null) => void;
+  opacity: number;
+  setOpacity: (opacity: number) => void;
 };
 
 export const SettingContext = createContext<Setting | undefined>(undefined);
@@ -21,6 +23,7 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(
     localStorage.getItem("backgroundImage") ?? null
   );
+  const [opacity, setOpacity] = useState<number>(0);
   const value = {
     lineColor,
     setLineColor,
@@ -28,6 +31,8 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
     setFontColor,
     backgroundImage,
     setBackgroundImage,
+    opacity,
+    setOpacity,
   };
   return (
     <SettingContext.Provider value={value}>{children}</SettingContext.Provider>

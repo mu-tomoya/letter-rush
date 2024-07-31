@@ -4,12 +4,14 @@ const SideMenu: React.FC = () => {
   const {
     fontColor,
     lineColor,
+    opacity,
     toggleMenu,
     menuOpen,
     menuRef,
     handleChangeFontColor,
     handleChangeBackgroundImage,
     handleChangeLineColor,
+    handleChangeOpacity,
     handleReset,
   } = useSideMenuHook();
   return (
@@ -39,6 +41,17 @@ const SideMenu: React.FC = () => {
             type="file"
             onChange={handleChangeBackgroundImage}
             accept="image/*"
+          />
+        </div>
+        <div className="button-group">
+          <p>画像透過度</p>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={opacity}
+            onChange={handleChangeOpacity}
           />
         </div>
         <div className="button-group">

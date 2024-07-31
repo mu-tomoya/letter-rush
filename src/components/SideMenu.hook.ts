@@ -7,7 +7,9 @@ export const useSideMenuHook = () => {
     setFontColor,
     setBackgroundImage,
     lineColor,
+    opacity,
     setLineColor,
+    setOpacity,
   } = useSettings();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -46,6 +48,15 @@ export const useSideMenuHook = () => {
     },
     [setBackgroundImage]
   );
+
+  const handleChangeOpacity = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const opacity = Number(e.target.value);
+      setOpacity(opacity);
+      localStorage.setItem("opacity", String(opacity));
+    },
+    [setOpacity]
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -58,10 +69,12 @@ export const useSideMenuHook = () => {
     setFontColor("#333");
     setLineColor("#333");
     setBackgroundImage(null);
+    setOpacity(0);
     localStorage.removeItem("fontColor");
     localStorage.removeItem("lineColor");
     localStorage.removeItem("backgroundImage");
-  }, [setFontColor, setLineColor, setBackgroundImage]);
+    localStorage.removeItem("opacity");
+  }, [setFontColor, setLineColor, setBackgroundImage, setOpacity]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -80,9 +93,11 @@ export const useSideMenuHook = () => {
     handleChangeFontColor,
     handleChangeLineColor,
     handleChangeBackgroundImage,
+    handleChangeOpacity,
     handleReset,
     menuRef,
     fontColor,
     lineColor,
+    opacity,
   };
 };

@@ -18,6 +18,7 @@ export const useLetterHook = () => {
       const newPages = [...pages];
       newPages[index] = e.target.value;
       setPages(newPages);
+      localStorage.setItem("a5Pages", JSON.stringify(newPages));
     },
     [pages]
   );
