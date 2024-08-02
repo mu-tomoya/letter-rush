@@ -2,7 +2,8 @@ import { useLetterHook } from "./Letter.hook";
 import useSettings from "./useSetting";
 
 const A5LetterEditor: React.FC = () => {
-  const { lineColor, fontColor, opacity, backgroundImage } = useSettings();
+  const { lineColor, fontColor, opacity, backgroundImage, fontFamily } =
+    useSettings();
   const { pages, handleAddPage, handleChange, handleReset, handleKeyDown } =
     useLetterHook();
   return (
@@ -19,6 +20,7 @@ const A5LetterEditor: React.FC = () => {
             ["--line-color" as any]: lineColor,
             ["--font-color" as any]: fontColor,
             ["--opacity" as any]: opacity,
+            ["--font-family" as any]: fontFamily,
           }}
         >
           <textarea

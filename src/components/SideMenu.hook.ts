@@ -10,6 +10,8 @@ export const useSideMenuHook = () => {
     opacity,
     setLineColor,
     setOpacity,
+    fontFamily,
+    setFontFamily,
   } = useSettings();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -57,6 +59,14 @@ export const useSideMenuHook = () => {
     },
     [setOpacity]
   );
+
+  const handleChangeFontFamily = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFontFamily(e.target.value);
+      localStorage.setItem("fontFamily", e.target.value);
+    },
+    []
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -70,10 +80,12 @@ export const useSideMenuHook = () => {
     setLineColor("#333");
     setBackgroundImage(null);
     setOpacity(0);
+    setFontFamily("Zen Kurenaido");
     localStorage.removeItem("fontColor");
     localStorage.removeItem("lineColor");
     localStorage.removeItem("backgroundImage");
     localStorage.removeItem("opacity");
+    localStorage.removeItem("fontFamily");
   }, [setFontColor, setLineColor, setBackgroundImage, setOpacity]);
 
   useEffect(() => {
@@ -94,10 +106,12 @@ export const useSideMenuHook = () => {
     handleChangeLineColor,
     handleChangeBackgroundImage,
     handleChangeOpacity,
+    handleChangeFontFamily,
     handleReset,
     menuRef,
     fontColor,
     lineColor,
     opacity,
+    fontFamily,
   };
 };

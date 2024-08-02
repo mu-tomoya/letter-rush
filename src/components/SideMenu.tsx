@@ -5,6 +5,7 @@ const SideMenu: React.FC = () => {
     fontColor,
     lineColor,
     opacity,
+    fontFamily,
     toggleMenu,
     menuOpen,
     menuRef,
@@ -12,6 +13,7 @@ const SideMenu: React.FC = () => {
     handleChangeBackgroundImage,
     handleChangeLineColor,
     handleChangeOpacity,
+    handleChangeFontFamily,
     handleReset,
   } = useSideMenuHook();
   return (
@@ -21,16 +23,27 @@ const SideMenu: React.FC = () => {
       </button>
       <div ref={menuRef} className={`side-menu ${menuOpen ? "open" : ""}`}>
         <div className="button-group">
-          <p>フォント色</p>
+          <label htmlFor="font-family">フォント</label>
           <input
+            id="font-family"
+            type="text"
+            value={fontFamily}
+            onChange={handleChangeFontFamily}
+          />
+        </div>
+        <div className="button-group">
+          <label htmlFor="font-color">フォント色</label>
+          <input
+            id="font-color"
             type="color"
             value={fontColor}
             onChange={handleChangeFontColor}
           />
         </div>
         <div className="button-group">
-          <p>罫線色</p>
+          <label htmlFor="line-color">罫線色</label>
           <input
+            id="line-color"
             type="color"
             value={lineColor}
             onChange={handleChangeLineColor}
@@ -38,14 +51,16 @@ const SideMenu: React.FC = () => {
         </div>
         <div className="button-group">
           <input
+            aria-label="背景画像"
             type="file"
             onChange={handleChangeBackgroundImage}
             accept="image/*"
           />
         </div>
         <div className="button-group">
-          <p>画像透過度</p>
+          <label htmlFor="opacity">画像透過度</label>
           <input
+            id="opacity"
             type="range"
             min="0"
             max="1"

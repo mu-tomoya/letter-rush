@@ -9,6 +9,8 @@ export type Setting = {
   setBackgroundImage: (file: string | null) => void;
   opacity: number;
   setOpacity: (opacity: number) => void;
+  fontFamily: string;
+  setFontFamily: (fontFamily: string) => void;
 };
 
 export const SettingContext = createContext<Setting | undefined>(undefined);
@@ -24,6 +26,9 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
     localStorage.getItem("backgroundImage") ?? null
   );
   const [opacity, setOpacity] = useState<number>(0);
+  const [fontFamily, setFontFamily] = useState<string>(
+    localStorage.getItem("fontFamily") ?? "Zen Kurenaido"
+  );
   const value = {
     lineColor,
     setLineColor,
@@ -33,6 +38,8 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
     setBackgroundImage,
     opacity,
     setOpacity,
+    fontFamily,
+    setFontFamily,
   };
   return (
     <SettingContext.Provider value={value}>{children}</SettingContext.Provider>
