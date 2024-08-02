@@ -52,6 +52,7 @@ button {
   font-family: var(--font-family), "Zen Kurenaido", sans-serif;
   font-size: 1rem;
   color: var(--font-color);
+  letter-spacing: var(--letter-spacing);
   line-height: 10mm;
   font-weight: 400;
   font-style: normal;

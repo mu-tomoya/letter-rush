@@ -12,6 +12,8 @@ export const useSideMenuHook = () => {
     setOpacity,
     fontFamily,
     setFontFamily,
+    letterSpacing,
+    setLetterSpacing,
   } = useSettings();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -65,8 +67,18 @@ export const useSideMenuHook = () => {
       setFontFamily(e.target.value);
       localStorage.setItem("fontFamily", e.target.value);
     },
-    []
+    [setFontFamily]
   );
+
+  const handleChangeLetterSpacing = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const letterSpacing = Number(e.target.value);
+      setLetterSpacing(letterSpacing);
+      localStorage.setItem("letterSpacing", String(letterSpacing));
+    },
+    [setLetterSpacing]
+  );
+
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -81,12 +93,20 @@ export const useSideMenuHook = () => {
     setBackgroundImage(null);
     setOpacity(0);
     setFontFamily("Zen Kurenaido");
+    setLetterSpacing("normal");
     localStorage.removeItem("fontColor");
     localStorage.removeItem("lineColor");
     localStorage.removeItem("backgroundImage");
     localStorage.removeItem("opacity");
     localStorage.removeItem("fontFamily");
-  }, [setFontColor, setLineColor, setBackgroundImage, setOpacity]);
+  }, [
+    setFontColor,
+    setLineColor,
+    setBackgroundImage,
+    setOpacity,
+    setFontFamily,
+    setLetterSpacing,
+  ]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -107,11 +127,13 @@ export const useSideMenuHook = () => {
     handleChangeBackgroundImage,
     handleChangeOpacity,
     handleChangeFontFamily,
+    handleChangeLetterSpacing,
     handleReset,
     menuRef,
     fontColor,
     lineColor,
     opacity,
     fontFamily,
+    letterSpacing,
   };
 };

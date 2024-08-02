@@ -11,6 +11,8 @@ export type Setting = {
   setOpacity: (opacity: number) => void;
   fontFamily: string;
   setFontFamily: (fontFamily: string) => void;
+  letterSpacing: number | "normal";
+  setLetterSpacing: (letterSpacing: number | "normal") => void;
 };
 
 export const SettingContext = createContext<Setting | undefined>(undefined);
@@ -29,6 +31,9 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
   const [fontFamily, setFontFamily] = useState<string>(
     localStorage.getItem("fontFamily") ?? "Zen Kurenaido"
   );
+  const [letterSpacing, setLetterSpacing] = useState<number | "normal">(
+    Number(localStorage.getItem("letterSpacing") ?? 0) ?? "normal"
+  );
   const value = {
     lineColor,
     setLineColor,
@@ -40,6 +45,8 @@ export const SettingProvider = ({ children }: { children: ReactNode }) => {
     setOpacity,
     fontFamily,
     setFontFamily,
+    letterSpacing,
+    setLetterSpacing,
   };
   return (
     <SettingContext.Provider value={value}>{children}</SettingContext.Provider>
