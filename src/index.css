@@ -49,6 +49,7 @@ button {
 .a5-page textarea {
   border: none;
   resize: none;
+  overflow: hidden;
   font-family: var(--font-family), "Zen Kurenaido", sans-serif;
   font-size: 1rem;
   color: var(--font-color);
