@@ -33,6 +33,8 @@ const A5LetterEditor: React.FC = () => {
           <textarea
             aria-label={`ページ${index + 1}`}
             value={pageText}
+            cols={27}
+            rows={17}
             onChange={(e) => handleChange(index, e)}
             onKeyDown={(e) => handleKeyDown(index, e)}
           />
