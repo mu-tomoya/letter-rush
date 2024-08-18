@@ -26,7 +26,7 @@ const A5LetterEditor: React.FC = () => {
             ["--line-color" as any]: lineColor,
             ["--font-color" as any]: fontColor,
             ["--opacity" as any]: opacity,
-            ["--font-family" as any]: fontFamily,
+            ["--font-family" as any]: fontFamily || "Zen Kurenaido",
             ["--letter-spacing" as any]: `${letterSpacing}px`,
           }}
         >
