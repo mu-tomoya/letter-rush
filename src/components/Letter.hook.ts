@@ -24,8 +24,10 @@ export const useLetterHook = () => {
   );
 
   const handleReset = useCallback((): void => {
-    setPages([""]);
-    localStorage.removeItem("a5Pages");
+    if (window.confirm("リセットしますか？")) {
+      setPages([""]);
+      localStorage.removeItem("a5Pages");
+    }
   }, []);
 
   const handleKeyDown = useCallback(
