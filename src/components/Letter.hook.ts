@@ -2,8 +2,8 @@ import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
 
 export const useLetterHook = () => {
   const [pages, setPages] = useState<string[]>(() => {
-    const a5Pages = localStorage.getItem("a5Pages");
-    if (a5Pages) {
+    const a5Pages = localStorage.getItem("a5Pages") ?? "";
+    if (a5Pages && typeof a5Pages === "string") {
       return JSON.parse(a5Pages).split("\f");
     }
     return [""];
