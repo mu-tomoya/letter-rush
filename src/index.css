@@ -7,7 +7,7 @@ body {
 form {
   margin: 0;
 }
-button {
+.button {
   cursor: pointer;
   padding: 0.5rem 1rem;
   border: none;
@@ -15,6 +15,21 @@ button {
   color: #fff;
   border-radius: 0.25rem;
   transition: background 0.3s;
+}
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+  .delete-button-icon {
+    fill: #888;
+  }
+  &:hover {
+    opacity: 1;
+  }
 }
 .button-group {
   display: flex;
@@ -37,7 +52,7 @@ button {
   border: 1px solid #333;
   padding: 15mm;
   width: 148mm;
-  height: 210mm;
+  min-height: 210mm;
   break-after: always;
   box-sizing: border-box;
   background-size: cover;
