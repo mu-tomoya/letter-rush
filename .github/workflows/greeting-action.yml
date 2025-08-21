@@ -1,0 +1,89 @@
+name: Automated Greeting
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request Number'
+        required: false
+        type: string
+      author:
+        description: 'PR Author'
+        required: false
+        type: string
+  
+  # Also trigger when someone stars the repo or manually runs
+  repository_dispatch:
+    types: [greeting-request]
+
+jobs:
+  send-greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Send automated greeting
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            
+            // Get PR number from input or from repository dispatch
+            let prNumber = context.payload.inputs?.pr_number;
+            let author = context.payload.inputs?.author;
+            
+            if (context.payload.client_payload) {
+              prNumber = context.payload.client_payload.pr_number;
+              author = context.payload.client_payload.author;
+            }
+            
+            // If no specific PR, find the most recent open PR
+            if (!prNumber) {
+              const prs = await github.rest.pulls.list({
+                owner,
+                repo,
+                state: 'open',
+                sort: 'updated',
+                direction: 'desc',
+                per_page: 1
+              });
+              
+              if (prs.data.length > 0) {
+                prNumber = prs.data[0].number;
+                author = prs.data[0].user.login;
+              }
+            }
+            
+            if (!prNumber) {
+              console.log('No PR found to send greeting to');
+              return;
+            }
+            
+            // Generate a random greeting message
+            const greetings = [
+              `🎉 こんにちは @${author} さん！プルリクエスト #${prNumber} をありがとうございます！`,
+              `🤖 自動挨拶ボット: @${author} さん、素晴らしいコードをありがとうございます！ #${prNumber}`,
+              `✨ @${author} さん、お疲れさまです！PR #${prNumber} をレビューさせていただきます！`,
+              `🚀 @${author} さん、新機能の追加ありがとうございます！PR #${prNumber} を確認します！`,
+              `💡 @${author} さん、いつも素敵な改善をありがとうございます！PR #${prNumber} 期待しています！`
+            ];
+            
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+            
+            const comment = `
+            ${randomGreeting}
+            
+            ---
+            🤖 この挨拶は自動で生成されました（実行時刻: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}）
+            `;
+            
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: parseInt(prNumber),
+              body: comment
+            });
+            
+            console.log(`Greeting sent to PR #${prNumber} by ${author}`);

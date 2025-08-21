@@ -1,0 +1,40 @@
+name: Add Greeting Button to PR
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-greeting-button:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    
+    steps:
+      - name: Add greeting button comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            
+            const comment = `
+            ## 🎉 新しいプルリクエストをありがとうございます！
+            
+            下のボタンをクリックして、自動挨拶を受け取ってください：
+            
+            [![挨拶ボタン](https://img.shields.io/badge/挨拶を受け取る-🤖-blue?style=for-the-badge)](https://github.com/${owner}/${repo}/actions/workflows/greeting-action.yml)
+            
+            **使い方：**
+            1. 上のボタンをクリック
+            2. 「Run workflow」ボタンをクリック
+            3. PR番号（${pull_number}）と作者名（${context.payload.pull_request.user.login}）を入力
+            4. 「Run workflow」で実行
+            `;
+            
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: pull_number,
+              body: comment
+            });
